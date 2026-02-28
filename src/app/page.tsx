@@ -1,8 +1,10 @@
 import Hero from "@/components/Hero";
 import MusicPlayer from "@/components/MusicPlayer";
 import Timeline from "@/components/Timeline";
+import WordCloudSection from "@/components/WordCloudSection";
 import Gallery from "@/components/Gallery";
 import MessageBoard from "@/components/MessageBoard";
+import ChatWidget from "@/components/ChatWidget";
 import { siteConfig } from "@/lib/data";
 
 export default function Home() {
@@ -10,12 +12,18 @@ export default function Home() {
     <main className="min-h-screen w-full relative">
       {/* 音乐播放器，浮动在屏幕右上角 */}
       <MusicPlayer src={siteConfig.musicUrl} />
+      
+      {/* 随机聊天金句盲盒，浮动在屏幕右下角 */}
+      <ChatWidget />
 
       {/* 首屏：时间轴与倒计时 */}
       <Hero />
 
       {/* 我们的故事 */}
       <Timeline />
+
+      {/* 聊天年度词云 */}
+      <WordCloudSection />
 
       {/* 回忆画廊 */}
       <Gallery />

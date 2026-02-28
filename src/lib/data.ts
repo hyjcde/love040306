@@ -27,9 +27,9 @@ export const siteConfig = {
   // 我们的故事 - 时间轴数据
   timeline: [
     {
-      date: "2023年4月3日",
+      date: "2023年4月12日 08:30:57",
       title: "故事的开始",
-      description: "那一天，两颗心开始慢慢靠近。就像鱼儿遇见了属于它的海洋，长颈鹿找到了最美的风景。",
+      description: "我们的第一条微信聊天记录，从这一刻起，两颗心开始慢慢靠近。",
       icon: "Heart"
     },
     {

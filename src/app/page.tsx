@@ -2,6 +2,8 @@ import Hero from "@/components/Hero";
 import MusicPlayer from "@/components/MusicPlayer";
 import Timeline from "@/components/Timeline";
 import WordCloudSection from "@/components/WordCloudSection";
+import AnalysisSection from "@/components/AnalysisSection";
+import DeepInsightSection from "@/components/DeepInsightSection";
 import Gallery from "@/components/Gallery";
 import MessageBoard from "@/components/MessageBoard";
 import ChatWidget from "@/components/ChatWidget";
@@ -24,6 +26,12 @@ export default function Home() {
 
       {/* 聊天年度词云 */}
       <WordCloudSection />
+
+      {/* 深度聊天分析图表 */}
+      <AnalysisSection />
+
+      {/* AI 情感洞察报告 */}
+      <DeepInsightSection />
 
       {/* 回忆画廊 */}
       <Gallery />

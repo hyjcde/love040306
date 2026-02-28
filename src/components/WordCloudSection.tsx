@@ -3,26 +3,21 @@
 import { motion } from "framer-motion";
 import { chatKnowledge } from "@/lib/chatData";
 import { MessageSquareHeart } from "lucide-react";
-
-// @ts-ignore - 忽略没有类型声明的报错
-import ReactWordcloud from "react-wordcloud";
+import { useMemo } from "react";
 
 export default function WordCloudSection() {
-  const options = {
-    colors: ["#ec4899", "#f43f5e", "#fb7185", "#fda4af", "#be185d", "#9f1239", "#881337", "#f9a8d4"],
-    enableTooltip: true,
-    deterministic: false,
-    fontFamily: "'Kaiti', 'STKaiti', serif",
-    fontSizes: [20, 80],
-    fontStyle: "normal",
-    fontWeight: "bold",
-    padding: 1,
-    rotations: 2,
-    rotationAngles: [0, 90],
-    scale: "sqrt",
-    spiral: "archimedean",
-    transitionDuration: 1000,
-  };
+  const colors = [
+    "text-pink-400", "text-rose-400", "text-pink-500", "text-rose-500", 
+    "text-pink-600", "text-rose-600", "text-pink-300", "text-rose-300"
+  ];
+
+  // 打乱数组避免频率高的全部挤在前面
+  const shuffledWords = useMemo(() => {
+    return [...chatKnowledge.wordCloud].sort(() => Math.random() - 0.5);
+  }, []);
+
+  // 找最大值用来算比例
+  const maxValue = Math.max(...chatKnowledge.wordCloud.map(w => w.value));
 
   return (
     <section className="py-24 bg-pink-50/50 overflow-hidden relative">
@@ -52,12 +47,36 @@ export default function WordCloudSection() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="w-full h-[400px] md:h-[600px] bg-white rounded-3xl shadow-xl border border-pink-100 p-4 md:p-8 flex items-center justify-center overflow-hidden"
+          className="w-full min-h-[400px] bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-pink-100 p-8 flex flex-wrap items-center justify-center gap-4 md:gap-8 overflow-hidden"
         >
-          <ReactWordcloud 
-            words={chatKnowledge.wordCloud} 
-            options={options as any} 
-          />
+          {shuffledWords.map((word, index) => {
+            // 计算相对大小，范围在 16px 到 64px 之间，并且加一点随机性
+            const ratio = word.value / maxValue;
+            const fontSize = Math.max(16, Math.min(64, ratio * 100 + 16));
+            const colorClass = colors[Math.floor(Math.random() * colors.length)];
+            // 增加一点随机旋转角度，像真实的词云一样
+            const rotate = (Math.random() - 0.5) * 20;
+
+            return (
+              <motion.span
+                key={index}
+                initial={{ opacity: 0, scale: 0 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ 
+                  duration: 0.5, 
+                  delay: (index % 20) * 0.05,
+                  type: "spring"
+                }}
+                whileHover={{ scale: 1.2, zIndex: 10, rotate: 0 }}
+                style={{ fontSize: `${fontSize}px`, rotate: `${rotate}deg` }}
+                className={`${colorClass} font-bold font-serif cursor-pointer hover:drop-shadow-md transition-all whitespace-nowrap`}
+                title={`出现了 ${word.value} 次`}
+              >
+                {word.text}
+              </motion.span>
+            );
+          })}
         </motion.div>
       </div>
     </section>

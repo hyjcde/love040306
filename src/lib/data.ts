@@ -52,7 +52,7 @@ export const siteConfig = {
     }
   ],
 
-  // 回忆画廊照片列表（只选取可以直接在浏览器渲染的 jpg/png）
+  // 回忆画廊照片列表（原有一组 + 从「爱宝宝」相簿导出的 fav_001～fav_305）
   photos: [
     { src: "/pic/pic1.jpg", caption: "外滩的夜晚，最美的风景是你" },
     { src: "/pic/pic2.jpg", caption: "黄浦江上的游船" },
@@ -62,5 +62,9 @@ export const siteConfig = {
     { src: "/pic/3.jpg", caption: "点点滴滴" },
     { src: "/pic/16.JPG", caption: "阳光下的你" },
     { src: "/pic/17.JPG", caption: "牵着手走过的路" },
-  ]
+    ...Array.from({ length: 305 }, (_, i) => ({
+      src: `/pic/fav_${String(i + 1).padStart(3, "0")}.jpg`,
+      caption: "爱宝宝",
+    })),
+  ],
 };

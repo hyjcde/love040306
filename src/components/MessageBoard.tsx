@@ -3,58 +3,85 @@
 import { motion } from "framer-motion";
 import Typewriter from "typewriter-effect";
 import { siteConfig } from "@/lib/data";
-import { Heart } from "lucide-react";
+import { Heart, Feather } from "lucide-react";
 
 export default function MessageBoard() {
   return (
-    <section className="py-24 bg-stone-100 overflow-hidden relative" id="message">
-      {/* 装饰性背景 */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-pink-200/40 rounded-full blur-3xl" />
-        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-rose-200/40 rounded-full blur-3xl" />
+    <section className="py-24 overflow-hidden relative" id="message">
+      {/* Decorative blobs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-32 -right-32 w-[500px] h-[500px] bg-rose-200/20 rounded-full blur-3xl" />
+        <div className="absolute -bottom-32 -left-32 w-[500px] h-[500px] bg-pink-200/20 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-amber-100/15 rounded-full blur-3xl" />
       </div>
 
       <div className="max-w-3xl mx-auto px-4 relative z-10">
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          className="bg-white/80 backdrop-blur-sm p-8 md:p-12 rounded-2xl shadow-xl border border-white"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="relative"
         >
-          <div className="flex justify-center mb-8">
-            <div className="w-16 h-16 bg-pink-50 rounded-full flex items-center justify-center">
-              <Heart className="w-8 h-8 text-pink-400" />
-            </div>
-          </div>
-          
-          <h2 className="text-2xl md:text-4xl font-bold text-center text-stone-800 mb-10 tracking-widest font-serif" style={{ fontFamily: "'Kaiti', 'STKaiti', serif" }}>
-            写给你的信
-          </h2>
+          {/* Letter envelope styling */}
+          <div className="bg-white/70 backdrop-blur-md rounded-3xl shadow-xl border border-white/80 overflow-hidden">
+            {/* Top decorative strip */}
+            <div className="h-1.5 bg-linear-to-r from-rose-300 via-pink-300 to-amber-300" />
 
-          <div 
-            className="text-lg md:text-2xl leading-relaxed md:leading-loose text-stone-700 min-h-[300px]"
-            style={{ fontFamily: "'Kaiti', 'STKaiti', serif" }}
-          >
-            <Typewriter
-              options={{
-                delay: 80,       // 打字速度
-                deleteSpeed: 30, // 删除速度，一般不用到
-                autoStart: true,
-                loop: false,     // 不循环，显得更真实
-              }}
-              onInit={(typewriter) => {
-                let tw = typewriter;
-                // 逐行打字并加上换行
-                siteConfig.messages.forEach((msg, index) => {
-                  tw = tw.typeString(msg).pauseFor(800);
-                  if (index < siteConfig.messages.length - 1) {
-                    tw = tw.typeString("<br/><br/>");
-                  }
-                });
-                tw.start();
-              }}
-            />
+            <div className="p-8 sm:p-10 md:p-14">
+              {/* Icon */}
+              <div className="flex justify-center mb-6">
+                <motion.div
+                  className="relative"
+                  animate={{ y: [0, -4, 0] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  <div className="w-16 h-16 bg-linear-to-br from-rose-50 to-pink-50 rounded-full flex items-center justify-center border border-rose-100/60 shadow-sm">
+                    <Feather className="w-7 h-7 text-rose-400" />
+                  </div>
+                </motion.div>
+              </div>
+
+              {/* Title */}
+              <h2
+                className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-stone-800 mb-3 tracking-wider"
+                style={{ fontFamily: "'Kaiti', 'STKaiti', 'KaiTi', serif" }}
+              >
+                写给你的信
+              </h2>
+              <div className="flex justify-center mb-10">
+                <Heart className="w-4 h-4 text-rose-300" />
+              </div>
+
+              {/* Typewriter content */}
+              <div
+                className="text-lg sm:text-xl md:text-2xl leading-relaxed sm:leading-loose text-stone-600 min-h-[320px]"
+                style={{ fontFamily: "'Kaiti', 'STKaiti', 'KaiTi', serif" }}
+              >
+                <Typewriter
+                  options={{
+                    delay: 80,
+                    deleteSpeed: 30,
+                    autoStart: true,
+                    loop: false,
+                    cursor: "|",
+                  }}
+                  onInit={(typewriter) => {
+                    let tw = typewriter;
+                    siteConfig.messages.forEach((msg, index) => {
+                      tw = tw.typeString(msg).pauseFor(600);
+                      if (index < siteConfig.messages.length - 1) {
+                        tw = tw.typeString("<br/><br/>");
+                      }
+                    });
+                    tw.start();
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* Bottom decorative strip */}
+            <div className="h-1 bg-linear-to-r from-amber-300 via-pink-300 to-rose-300" />
           </div>
         </motion.div>
       </div>

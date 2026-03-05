@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ChevronUp } from "lucide-react";
 
-const SCROLL_THRESHOLD = 400;
+const SCROLL_THRESHOLD = 500;
 
 export default function BackToTop() {
   const [visible, setVisible] = useState(false);
@@ -21,15 +22,21 @@ export default function BackToTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  if (!visible) return null;
-
   return (
-    <button
-      onClick={scrollToTop}
-      aria-label="回到顶部"
-      className="fixed bottom-8 right-8 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-rose-500/90 text-white shadow-lg shadow-rose-900/30 backdrop-blur-sm transition-all duration-300 hover:bg-rose-600 hover:scale-110 active:scale-95"
-    >
-      <ChevronUp className="h-6 w-6" />
-    </button>
+    <AnimatePresence>
+      {visible && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          transition={{ duration: 0.3 }}
+          onClick={scrollToTop}
+          aria-label="回到顶部"
+          className="fixed bottom-24 right-6 z-50 flex h-11 w-11 items-center justify-center rounded-full bg-stone-800/80 text-white backdrop-blur-sm shadow-lg transition-colors duration-300 hover:bg-rose-500"
+        >
+          <ChevronUp className="h-5 w-5" />
+        </motion.button>
+      )}
+    </AnimatePresence>
   );
 }

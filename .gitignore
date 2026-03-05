@@ -39,8 +39,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# Photos export temp (run scripts to copy to public/pic)
+temp_photos_export/
+
 # Data files - too large for git
 pure_chat_history.txt
 chat_history.csv
 temp_*.json
 temp_*.txt
+
+# Large photo exports - deploy via vercel CLI locally
+public/pic/fav_*.jpg

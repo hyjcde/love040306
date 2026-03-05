@@ -4,73 +4,99 @@ import { motion } from "framer-motion";
 import { siteConfig } from "@/lib/data";
 import { Heart, MapPin, Star, Infinity as InfinityIcon } from "lucide-react";
 
-// 简单的图标映射字典
 const iconMap: Record<string, React.ReactNode> = {
-  Heart: <Heart className="w-6 h-6 text-pink-500" />,
-  MapPin: <MapPin className="w-6 h-6 text-pink-500" />,
-  Star: <Star className="w-6 h-6 text-pink-500" />,
-  Infinity: <InfinityIcon className="w-6 h-6 text-pink-500" />,
+  Heart: <Heart className="w-5 h-5 text-rose-500" />,
+  MapPin: <MapPin className="w-5 h-5 text-rose-500" />,
+  Star: <Star className="w-5 h-5 text-rose-500" />,
+  Infinity: <InfinityIcon className="w-5 h-5 text-rose-500" />,
 };
 
 export default function Timeline() {
   return (
-    <section className="py-24 bg-stone-50 overflow-hidden" id="timeline">
-      <div className="max-w-4xl mx-auto px-4">
+    <section className="py-24 overflow-hidden" id="timeline">
+      <div className="max-w-5xl mx-auto px-4">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center mb-20"
         >
-          <h2 className="text-3xl md:text-5xl font-bold text-stone-800 mb-4 tracking-wider">
+          <p className="text-rose-400 text-sm font-medium tracking-[0.25em] uppercase mb-3">
+            Our Story
+          </p>
+          <h2 className="text-3xl md:text-5xl font-bold text-stone-800 tracking-tight">
             我们的故事
           </h2>
-          <div className="w-24 h-1 bg-pink-300 mx-auto rounded-full" />
+          <div className="mt-4 w-16 h-1 bg-linear-to-r from-rose-300 to-pink-300 mx-auto rounded-full" />
         </motion.div>
 
         <div className="relative">
-          {/* 中间的竖线 */}
-          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-pink-200 transform md:-translate-x-1/2" />
+          {/* Center line */}
+          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-linear-to-b from-rose-200 via-rose-300 to-rose-200 md:-translate-x-px" />
 
           {siteConfig.timeline.map((item, index) => {
-            const isEven = index % 2 === 0;
+            const isLeft = index % 2 === 0;
             return (
-              <div 
+              <div
                 key={index}
-                className={`relative flex items-center justify-between mb-16 w-full ${
-                  isEven ? "md:flex-row-reverse" : "md:flex-row"
+                className={`relative flex items-start mb-16 last:mb-0 ${
+                  isLeft ? "md:flex-row" : "md:flex-row-reverse"
                 }`}
               >
-                {/* 移动端排版修正：左侧留空位给线条 */}
-                <div className="hidden md:block w-5/12" />
-                
-                {/* 中间的图标 */}
-                <div className="absolute left-4 md:left-1/2 transform -translate-x-1/2 flex items-center justify-center w-12 h-12 rounded-full bg-white border-4 border-pink-100 shadow-md z-10">
-                  {iconMap[item.icon] || <Heart className="w-6 h-6 text-pink-500" />}
+                {/* Spacer */}
+                <div className="hidden md:block md:w-1/2" />
+
+                {/* Center dot */}
+                <div className="absolute left-6 md:left-1/2 -translate-x-1/2 z-10">
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.5,
+                      delay: 0.2,
+                      type: "spring",
+                      stiffness: 260,
+                      damping: 20,
+                    }}
+                    className="w-12 h-12 rounded-full bg-white border-2 border-rose-200 shadow-lg shadow-rose-100/50 flex items-center justify-center"
+                  >
+                    {iconMap[item.icon] || <Heart className="w-5 h-5 text-rose-500" />}
+                  </motion.div>
                 </div>
 
-                {/* 内容卡片 */}
+                {/* Card */}
                 <motion.div
-                  initial={{ opacity: 0, x: isEven ? 50 : -50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className="w-full pl-16 md:pl-0 md:w-5/12"
+                  initial={{
+                    opacity: 0,
+                    x: isLeft ? -40 : 40,
+                    y: 10,
+                  }}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{
+                    duration: 0.7,
+                    delay: 0.15,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className="w-full pl-20 md:pl-0 md:w-[calc(50%-2rem)]"
                 >
-                  <div className={`p-6 bg-white rounded-2xl shadow-lg border border-stone-100 hover:shadow-xl transition-shadow duration-300 relative ${
-                    isEven ? "md:text-left" : "md:text-right"
-                  }`}>
-                    {/* 小三角形指向竖线 */}
-                    <div className={`hidden md:block absolute top-6 w-4 h-4 bg-white border-t border-r border-stone-100 transform ${
-                      isEven ? "-left-2 -rotate-135 border-b-0 border-l-0" : "-right-2 rotate-45"
-                    }`} />
-                    
-                    <span className="inline-block px-3 py-1 bg-pink-50 text-pink-600 text-sm font-semibold rounded-full mb-3">
+                  <div
+                    className={`group relative p-6 sm:p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-md hover:shadow-xl border border-stone-100/80 transition-all duration-500 ${
+                      isLeft ? "md:mr-8" : "md:ml-8"
+                    }`}
+                  >
+                    {/* Accent bar on hover */}
+                    <div className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl bg-linear-to-r from-rose-300 to-pink-300 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" />
+
+                    <span className="inline-block px-3 py-1 bg-rose-50 text-rose-500 text-xs font-semibold rounded-full mb-4 tracking-wide">
                       {item.date}
                     </span>
-                    <h3 className="text-xl font-bold text-stone-800 mb-3">{item.title}</h3>
-                    <p className="text-stone-600 leading-relaxed text-sm md:text-base">
+                    <h3 className="text-xl sm:text-2xl font-bold text-stone-800 mb-3">
+                      {item.title}
+                    </h3>
+                    <p className="text-stone-500 leading-relaxed text-sm sm:text-base">
                       {item.description}
                     </p>
                   </div>

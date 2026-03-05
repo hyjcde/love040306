@@ -47,6 +47,3 @@ pure_chat_history.txt
 chat_history.csv
 temp_*.json
 temp_*.txt
-
-# Large photo exports - deploy via vercel CLI locally
-public/pic/fav_*.jpg

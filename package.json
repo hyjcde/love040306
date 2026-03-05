@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "compress-images": "node scripts/compress-images.js"
   },
   "dependencies": {
     "for-editor": "^0.3.5",
@@ -22,6 +23,7 @@
     "typewriter-effect": "^2.22.0"
   },
   "devDependencies": {
+    "sharp": "^0.33.5",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

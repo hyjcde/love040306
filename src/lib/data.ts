@@ -1,27 +1,20 @@
+import { dedupedPhotos } from "./photos-deduped";
+
 export const siteConfig = {
-  // 纪念日时间：注意格式 YYYY-MM-DDTHH:mm:ss
-  anniversaryDate: "2023-04-03T00:00:00", 
+  // 纪念日时间：在一起 2023.07.08，格式 YYYY-MM-DDTHH:mm:ss
+  anniversaryDate: "2023-07-08T00:00:00",
+  // BGM：当前为 public/music/music.mp3。想换歌：把新 mp3 放到 public/music/ 并改下面路径，或直接替换 music.mp3
   musicUrl: "/music/music.mp3",
-  
-  // Hero 区域轮播图
-  heroImages: [
-    "/pic/pic1.jpg",
-    "/pic/pic2.jpg",
-    "/pic/pic3.jpg",
-    "/pic/1.JPG"
-  ],
+
+  // Hero 背景轮播：从照片墙里选（跳过最前面几张），多张轮换
+  heroImages: dedupedPhotos.slice(8).map((p) => p.src),
 
   // 打字机留言板内容（支持多段落，用数组表示）
   messages: [
-    "亲爱的长颈鹿小姐：",
-    "时光荏苒，不知不觉我们已经走过了这么多的日日夜夜。",
-    "曾经的那个小鱼，依然在你的回忆里遨游，",
-    "而在天空下漫步的长颈鹿，也始终牵动着我的心。",
-    "从最初的相识，到如今的相伴，每一帧画面都如繁星般璀璨。",
-    "不论未来的路有多远，距离有多长，",
-    "我们的心跳始终同频共振。",
-    "期待我们再次相拥的那一天，",
-    "永远爱你的，小鱼。"
+    "亲爱的宝宝：",
+    "我们的故事还有很长很长……",
+    "最爱最爱的宝宝，",
+    "爱你的鱼。"
   ],
 
   // 我们的故事 - 时间轴数据
@@ -52,19 +45,6 @@ export const siteConfig = {
     }
   ],
 
-  // 回忆画廊照片列表（原有一组 + 从「爱宝宝」相簿导出的 fav_001～fav_305）
-  photos: [
-    { src: "/pic/pic1.jpg", caption: "外滩的夜晚，最美的风景是你" },
-    { src: "/pic/pic2.jpg", caption: "黄浦江上的游船" },
-    { src: "/pic/pic3.jpg", caption: "宝宝和宝宝，永远在一起" },
-    { src: "/pic/1.JPG", caption: "那些开心的瞬间" },
-    { src: "/pic/2.JPG", caption: "美好的回忆" },
-    { src: "/pic/3.jpg", caption: "点点滴滴" },
-    { src: "/pic/16.JPG", caption: "阳光下的你" },
-    { src: "/pic/17.JPG", caption: "牵着手走过的路" },
-    ...Array.from({ length: 305 }, (_, i) => ({
-      src: `/pic/fav_${String(i + 1).padStart(3, "0")}.jpg`,
-      caption: "爱宝宝",
-    })),
-  ],
+  // 回忆画廊（去重 + 描述多样化，由 scripts/dedup-photos.js 生成 photos-deduped.ts）
+  photos: dedupedPhotos,
 };

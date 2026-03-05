@@ -28,12 +28,10 @@ export default function RomanticFooter() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-2xl px-4">
-        {/* Romantic closing message */}
-        <p className="mb-6 font-serif text-lg leading-relaxed text-rose-100/90 md:text-xl">
-          愿我们的故事，永远写满温柔与浪漫。
-          <br />
-          感谢有你，让每一个日子都值得纪念。
+        <p className="mb-6 font-serif text-lg leading-relaxed text-rose-100/90 md:text-xl italic">
+          &ldquo;两情若是久长时，又岂在朝朝暮暮。&rdquo;
         </p>
+        <p className="mb-6 text-sm text-rose-200/80">——秦观</p>
         <div className="mx-auto mb-4 h-px w-24 bg-rose-500/40" />
         <p className="text-sm text-stone-500">
           © 2026 Love 0403 · Built with ❤️ by 小鱼 for 长颈鹿小姐

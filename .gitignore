@@ -47,3 +47,5 @@ pure_chat_history.txt
 chat_history.csv
 temp_*.json
 temp_*.txt
+# 从 2023-07-08 起按 30 万字拆分的聊天（脚本生成，暂不纳入仓库）
+chat_from_20230708/

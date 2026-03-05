@@ -22,13 +22,10 @@ export default function Timeline() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="text-center mb-20"
         >
-          <p className="text-rose-400 text-sm font-medium tracking-[0.25em] uppercase mb-3">
-            Our Story
-          </p>
-          <h2 className="text-3xl md:text-5xl font-bold text-stone-800 tracking-tight">
+          <h2 className="text-2xl md:text-4xl font-semibold text-stone-700 tracking-tight">
             我们的故事
           </h2>
-          <div className="mt-4 w-16 h-1 bg-linear-to-r from-rose-300 to-pink-300 mx-auto rounded-full" />
+          <div className="mt-3 w-12 h-0.5 bg-stone-300 mx-auto rounded-full" />
         </motion.div>
 
         <div className="relative">

@@ -11,7 +11,9 @@ interface TimeElapsed {
   seconds: number;
 }
 
-const ROMANTIC_QUOTE = "爱是两颗心碰撞的火花，也是无数个平凡日子里的温柔相守";
+// 名人名言，不瞎编（沈从文）
+const ROMANTIC_QUOTE = "我们相爱一生，一生还是太短。";
+const ROMANTIC_QUOTE_ATTR = "——沈从文";
 
 const PARTICLES_COUNT = 24;
 
@@ -158,15 +160,18 @@ export default function Hero() {
             </p>
           </motion.div>
 
-          {/* Romantic quote */}
-          <motion.p
-            className="text-sm sm:text-base md:text-lg text-pink-200/90 font-light tracking-wider max-w-2xl mb-10 md:mb-14 px-2 italic"
+          {/* 名人名言 */}
+          <motion.div
+            className="max-w-2xl mb-10 md:mb-14 px-2 text-center"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, delay: 0.8, ease: "easeOut" }}
           >
-            &ldquo;{ROMANTIC_QUOTE}&rdquo;
-          </motion.p>
+            <p className="text-sm sm:text-base md:text-lg text-pink-200/90 font-light tracking-wider italic">
+              &ldquo;{ROMANTIC_QUOTE}&rdquo;
+            </p>
+            <p className="mt-1 text-xs text-pink-200/70 not-italic">{ROMANTIC_QUOTE_ATTR}</p>
+          </motion.div>
 
           {/* Timer blocks - glassmorphism + pulse on seconds */}
           <motion.div
